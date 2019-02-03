@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Conversation;
 use App\Http\Resources\ConversationResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,5 +22,16 @@ class ConversationController extends Controller
             ->get();
 
         return ConversationResource::collection($conversations);
+    }
+
+    public function show(Conversation $conversation)
+    {
+        $this->authorize('view', $conversation);
+
+        if ($conversation->isReply()) {
+            abort(404);
+        }
+
+        return ConversationResource::make($conversation->load(['user', 'users', 'replies.user']));
     }
 }
