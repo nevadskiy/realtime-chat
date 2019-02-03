@@ -1,6 +1,7 @@
 <template>
-    <div v-if="conversation">
+    <div v-if="loading" class="loader">Loading...</div>
 
+    <div v-else-if="conversation">
         <ul class="list-inline" v-if="conversation.users.length">
             <li class="list-inline-item"><strong>In conversation: </strong></li>
             <li v-for="user in conversation.users" :key="user.id" class="list-inline-item">{{ user.name }}</li>
@@ -36,23 +37,19 @@
             </div>
         </div>
     </div>
+
+    <p v-else>Select a conversation</p>
 </template>
 
 <script>
-  import {mapActions, mapGetters} from 'vuex';
+  import {mapGetters} from 'vuex';
 
   export default {
     computed: {
       ...mapGetters({
         conversation: 'currentConversation',
+        loading: 'loadingConversation',
       })
-    },
-
-    methods: {
-      ...mapActions({
-        getConversations: 'getConversations',
-        getConversation: 'getConversation',
-      }),
     },
   }
 </script>

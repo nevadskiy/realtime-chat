@@ -7,18 +7,27 @@ const state = {
 
 const getters = {
   currentConversation: state => state.conversation,
+  loadingConversation: state => state.loadingConversation,
 };
 
 const mutations = {
   setConversation(state, conversation) {
     state.conversation = conversation;
+  },
+  setConversationLoading(state, status) {
+    state.loadingConversation = status;
   }
 };
 
 const actions = {
   getConversation({commit}, id) {
+    commit('setConversationLoading', true);
+
     api.getConversation(id).then((response) => {
-      commit('setConversation', response.data.data)
+      commit('setConversation', response.data.data);
+      commit('setConversationLoading', false);
+
+      window.history.pushState(null, null, `/conversations/${id}`);
     });
   },
 };

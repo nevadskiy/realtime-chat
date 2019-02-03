@@ -5,10 +5,12 @@
 
             <div v-if="loading" class="loader">Loading...</div>
 
-            <div v-else-if="conversations.length" class="media" v-for="conversation in conversations" :key="conversation.id">
+            <div v-else-if="conversations.length" class="media" v-for="conversation in conversations"
+                 :key="conversation.id">
                 <div class="media-body">
                     <a href="" @click.prevent="getConversation(conversation.id)">{{ trunc(conversation.body, 50) }}</a>
-                    <p class="text-muted">You and {{ conversation.participant_count }} {{ pluralize('other', conversation.participant_count) }}</p>
+                    <p class="text-muted">You and {{ conversation.participant_count }} {{ pluralize('other',
+                        conversation.participant_count) }}</p>
                     <ul class="list-inline">
                         <li class="list-inline-item" v-for="user in conversation.users" :key="user.id">
                             <img
@@ -34,6 +36,13 @@
   import {mapActions, mapGetters} from 'vuex';
 
   export default {
+    props: {
+      id: {
+        type: Number,
+        default: null,
+      },
+    },
+
     computed: {
       ...mapGetters({
         conversations: 'allConversations',
@@ -52,6 +61,10 @@
 
     created() {
       this.getConversations(1);
+
+      if (this.id) {
+        this.getConversation(this.id);
+      }
     },
   }
 </script>

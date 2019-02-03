@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5">
-                <conversations></conversations>
+                <conversations :id="id"></conversations>
             </div>
             <div class="col-md-7">
                 <conversation></conversation>
@@ -13,6 +13,12 @@
 
 <script>
   export default {
+    props: {
+      id: {
+        type: Number,
+        default: null,
+      },
+    },
     name: 'conversations-dashboard',
   }
 </script>

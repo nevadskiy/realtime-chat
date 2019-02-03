@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <conversations-dashboard></conversations-dashboard>
+    <conversations-dashboard
+            :id="{{ isset($conversation) ? $conversation->id : 'null' }}"
+    >
+    </conversations-dashboard>
 @endsection
