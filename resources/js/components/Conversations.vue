@@ -7,7 +7,7 @@
 
             <div v-else-if="conversations.length" class="media" v-for="conversation in conversations" :key="conversation.id">
                 <div class="media-body">
-                    <a href="">{{ trunc(conversation.body, 50) }}</a>
+                    <a href="" @click.prevent="getConversation(conversation.id)">{{ trunc(conversation.body, 50) }}</a>
                     <p class="text-muted">You and {{ conversation.participant_count }} {{ pluralize('other', conversation.participant_count) }}</p>
                     <ul class="list-inline">
                         <li class="list-inline-item" v-for="user in conversation.users" :key="user.id">
@@ -44,6 +44,7 @@
     methods: {
       ...mapActions({
         getConversations: 'getConversations',
+        getConversation: 'getConversation',
       }),
       trunc: trunc,
       pluralize: pluralize,

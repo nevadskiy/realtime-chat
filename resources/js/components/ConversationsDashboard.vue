@@ -5,20 +5,14 @@
                 <conversations></conversations>
             </div>
             <div class="col-md-7">
-                Conversation
+                <conversation></conversation>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-  import Conversations from './Conversations.vue';
-
   export default {
     name: 'conversations-dashboard',
-
-    components: {
-      conversations: Conversations,
-    },
   }
 </script>
