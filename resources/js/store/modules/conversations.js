@@ -2,22 +2,31 @@ import api from '../api';
 import conversation from './conversation';
 
 const state = {
-  conversation: [],
+  conversations: [],
   loadingConversations: false,
 };
 
 const getters = {
-
+  allConversations: state => state.conversations,
+  loadingConversations: state => state.loadingConversations,
 };
 
 const mutations = {
-
+  setConversations(state, conversations) {
+    state.conversations = conversations
+  },
+  setConversationsLoading(state, status) {
+    state.loadingConversations = status;
+  }
 };
 
 const actions = {
   getConversations({dispatch, commit}, page) {
-    api.getConversations(1).then((response) => {
-      commit('setConversations', response.data)
+    commit('setConversationsLoading', true);
+
+    api.getConversations(page).then((response) => {
+      commit('setConversations', response.data.data);
+      commit('setConversationsLoading', false);
     });
   }
 };

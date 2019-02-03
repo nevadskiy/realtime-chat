@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default {
-  getConversations(id) {
-    axios.get();
+  getConversations(page) {
+    return axios.get('/webapi/conversations?page=' + page);
   }
 };
