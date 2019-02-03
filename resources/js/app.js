@@ -1,4 +1,4 @@
-import Vuex from 'vuex';
+import store from './store';
 
 require('./bootstrap');
 
@@ -6,8 +6,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-Vue.use(Vuex);
-
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store,
 });
