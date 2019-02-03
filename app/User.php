@@ -2,10 +2,14 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @property Collection conversations
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -27,4 +31,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function conversations()
+    {
+        return $this->belongsTo(Conversation::class)->whereNull('parent_id')->orderBy('last_reply', 'desc');
+    }
+
+    public function isInConversation(Conversation $conversation)
+    {
+        return $this->conversations->contains($conversation);
+    }
+
+    public function avatar($size = 45)
+    {
+        return 'https://www.gravatar.com/avatar/' . md5($this->email) . '?s=' . $size . '&d=mm';
+    }
 }

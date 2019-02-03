@@ -55,5 +55,8 @@ window.Echo = new Echo({
 ``` 
 
 ### TODO:
+- add eslint extension
+- add code style extensions (cs-fixer)
+
 - figure it out with deployment
 - add all extensions to supervisor container
