@@ -25,6 +25,6 @@ class ConversationReplyController extends Controller
         $conversation->replies()->save($reply);
         $conversation->touchLastReply();
 
-        return ConversationResource::make($reply->load(['user', 'users']));
+        return ConversationResource::make($reply->load(['user', 'parent.user', 'parent.users']));
     }
 }

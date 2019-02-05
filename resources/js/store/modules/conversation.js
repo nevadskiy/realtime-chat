@@ -38,6 +38,7 @@ const actions = {
     return api.storeConversationReply(id, {body})
       .then((response) => {
         commit('appendToConversation', response.data.data);
+        commit('prependToConversations', response.data.data.parent);
       });
   },
 };
