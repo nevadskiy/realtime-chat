@@ -2,6 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5">
+                <conversation-form></conversation-form>
                 <conversations :id="id"></conversations>
             </div>
             <div class="col-md-7">
