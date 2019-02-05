@@ -11,5 +11,12 @@ export default {
 
   storeConversationReply(id, {body}) {
     return axios.post(`/webapi/conversations/${id}/reply`, {body})
+  },
+
+  storeConversation({body, recipientIds}) {
+    return axios.post(`/webapi/conversations/`, {
+      body: body,
+      recipients: recipientIds,
+    })
   }
 };

@@ -10,11 +10,7 @@ class SearchUserController extends Controller
 {
     public function index(Request $request, UserSearchService $service)
     {
-        $this->validate($request, [
-            'query' => ['required'],
-        ]);
-
-        $users = $service->search($request->get('query'));
+        $users = $service->search((string) $request->get('query'));
 
         return response()->json($users);
     }

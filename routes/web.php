@@ -20,7 +20,9 @@ Auth::routes();
 Route::group(['prefix' => 'webapi', 'namespace' => 'Api'], function () {
     Route::get('/conversations', 'ConversationController@index');
     Route::get('/conversations/{conversation}', 'ConversationController@show');
+    Route::post('/conversations', 'ConversationController@store');
     Route::post('/conversations/{conversation}/reply', 'ConversationReplyController@store');
+    Route::get('/conversations/{conversation}/users', 'ConversationUserController@store');
     Route::get('/search/users', 'SearchUserController@index');
 });
 

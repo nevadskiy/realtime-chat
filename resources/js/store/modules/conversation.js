@@ -41,6 +41,14 @@ const actions = {
         commit('prependToConversations', response.data.data.parent);
       });
   },
+
+  createConversation({commit, dispatch}, {body, recipientIds}) {
+    return api.storeConversation({body, recipientIds})
+      .then((response) => {
+        dispatch('getConversation', response.data.data.id);
+        commit('prependToConversations', response.data.data);
+      });
+  },
 };
 
 export default {
