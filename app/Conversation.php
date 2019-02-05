@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conversation extends Model
 {
+    protected $fillable = ['last_reply'];
+
     protected $dates = ['last_reply'];
 
     public function user()

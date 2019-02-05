@@ -7,5 +7,9 @@ export default {
 
   getConversation(id) {
     return axios.get(`/webapi/conversations/${id}`);
+  },
+
+  storeConversationReply(id, {body}) {
+    return axios.post(`/webapi/conversations/${id}/reply`, {body})
   }
 };

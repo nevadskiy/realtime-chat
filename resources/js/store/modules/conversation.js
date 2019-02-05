@@ -16,7 +16,10 @@ const mutations = {
   },
   setConversationLoading(state, status) {
     state.loadingConversation = status;
-  }
+  },
+  appendToConversation(state, reply) {
+    state.conversation.replies.unshift(reply);
+  },
 };
 
 const actions = {
@@ -29,6 +32,13 @@ const actions = {
 
       window.history.pushState(null, null, `/conversations/${id}`);
     });
+  },
+
+  createConversationReply({commit}, {id, body}) {
+    return api.storeConversationReply(id, {body})
+      .then((response) => {
+        commit('appendToConversation', response.data.data);
+      });
   },
 };
 

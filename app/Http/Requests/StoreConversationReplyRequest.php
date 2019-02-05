@@ -11,7 +11,7 @@ class StoreConversationReplyRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,8 +21,10 @@ class StoreConversationReplyRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
-        return ['required', 'max:3000'];
+        return [
+            'body' => 'required', 'max:3000'
+        ];
     }
 }

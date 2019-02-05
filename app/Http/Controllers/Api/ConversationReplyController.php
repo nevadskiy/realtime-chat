@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Conversation;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreConversationReplyRequest;
 use App\Http\Resources\ConversationResource;
-use Illuminate\Http\Request;
 
 class ConversationReplyController extends Controller
 {
@@ -25,6 +25,6 @@ class ConversationReplyController extends Controller
         $conversation->replies()->save($reply);
         $conversation->touchLastReply();
 
-        return ConversationResource::make($conversation->load(['user', 'users']));
+        return ConversationResource::make($reply->load(['user', 'users']));
     }
 }

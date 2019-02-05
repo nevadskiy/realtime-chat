@@ -9,6 +9,10 @@
 
         <hr>
 
+        <conversation-reply-form></conversation-reply-form>
+
+        <hr>
+
         <div class="card mb-2" v-for="reply in conversation.replies" :key="reply.id">
             <div class="card-body">
                 <div class="media">
