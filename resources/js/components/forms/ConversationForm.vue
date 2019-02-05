@@ -24,11 +24,11 @@
                 <ul v-if="recipients.length" class="list-inline">
                     <li class="list-inline-item"><strong>To:</strong></li>
                     <li
-                            v-for="recipient in recipients"
+                            v-for="(recipient, index) in recipients"
                             :key="recipient.id"
                             class="list-inline-item"
                     >
-                        {{ recipient.name }} [<a role="button" @click.prevent="removeRecipient(recipient)">X</a>]
+                        {{ recipient.name }} [<a role="button" @click.prevent="removeRecipient(index)">X</a>]
                     </li>
                 </ul>
 

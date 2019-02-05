@@ -25,7 +25,7 @@ class StoreConversationUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'recipients' => ['required', 'array', 'exists:users,id']
+            'users' => ['required', 'array', 'exists:users,id']
         ];
     }
 }

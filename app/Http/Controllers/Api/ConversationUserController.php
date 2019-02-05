@@ -11,7 +11,7 @@ class ConversationUserController extends Controller
 {
     public function store(StoreConversationUserRequest $request, Conversation $conversation)
     {
-        $conversation->users()->syncWithoutDetaching($request->get('recipients'));
+        $conversation->users()->syncWithoutDetaching($request->get('users'));
 
         return ConversationResource::make(
             $conversation->load(['user', 'users'])

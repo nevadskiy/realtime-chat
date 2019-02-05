@@ -20,6 +20,17 @@ const mutations = {
   appendToConversation(state, reply) {
     state.conversation.replies.unshift(reply);
   },
+  addUsersToConversation(state, users) {
+    users.forEach((user) => {
+      let exists = state.conversation.users.some((u) => {
+        return u.id === user.id;
+      });
+
+      if (!exists) {
+        state.conversation.users.push(user);
+      }
+    });
+  }
 };
 
 const actions = {
@@ -47,6 +58,14 @@ const actions = {
       .then((response) => {
         dispatch('getConversation', response.data.data.id);
         commit('prependToConversations', response.data.data);
+      });
+  },
+
+  addConversationUsers({commit, dispatch}, {id, userIds}) {
+    return api.storeConversationUsers(id, {userIds})
+      .then((response) => {
+        commit('addUsersToConversation', response.data.data.users);
+        commit('updateConversationInList', response.data.data);
       });
   },
 };

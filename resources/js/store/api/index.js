@@ -18,5 +18,11 @@ export default {
       body: body,
       recipients: recipientIds,
     })
+  },
+
+  storeConversationUsers(id, {userIds}) {
+    return axios.post(`/webapi/conversations/${id}/users`, {
+      users: userIds,
+    })
   }
 };
