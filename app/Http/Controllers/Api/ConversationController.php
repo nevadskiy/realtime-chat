@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Conversation;
+use App\Events\ConversationCreated;
 use App\Http\Requests\StoreConversationRequest;
 use App\Http\Resources\ConversationResource;
 use Illuminate\Http\Request;
@@ -47,7 +48,11 @@ class ConversationController extends Controller
 
         $conversation->users()->sync($this->getRecipientIds($request));
 
-        return ConversationResource::make($conversation->load(['user', 'users', 'replies.user']));
+        $conversation->load(['user', 'users', 'replies.user']);
+
+        broadcast(new ConversationCreated($conversation))->toOthers();
+
+        return ConversationResource::make($conversation);
     }
 
     private function getRecipientIds(Request $request): array

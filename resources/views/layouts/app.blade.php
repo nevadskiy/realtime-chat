@@ -9,6 +9,17 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <script>
+      window.echoConfig = {
+        host: {!! json_encode(env('ECHO_SERVER_HOST')) !!},
+        port: {!! json_encode(env('ECHO_SERVER_PORT')) !!}
+      };
+
+      window.app = {
+        user: {!! json_encode(auth()->user()) !!},
+        authenticated: {!! json_encode(auth()->check()) !!},
+      }
+    </script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 

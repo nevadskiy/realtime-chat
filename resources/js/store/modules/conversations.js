@@ -40,6 +40,11 @@ const actions = {
     api.getConversations(page).then((response) => {
       commit('setConversations', response.data.data);
       commit('setConversationsLoading', false);
+
+      Echo.private(`user.${app.user.id}`)
+        .listen('ConversationCreated', (e) => {
+          console.log(e);
+        })
     });
   }
 };

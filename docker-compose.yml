@@ -27,6 +27,7 @@ services:
     links:
       - mysql
       - redis
+      - laravel-echo-server
       - mailhog
     environment:
       XDEBUG_CONFIG: "remote_host=192.168.220.1"
@@ -109,6 +110,19 @@ services:
     networks:
       - internal
 
+  ### Laravel Echo Server ################
+  laravel-echo-server:
+    build:
+      context: docker/laravel-echo-server
+      dockerfile: Dockerfile
+    ports:
+      - 6002:6001
+    links:
+      - redis
+      - supervisor
+    networks:
+      - internal
+
   ### Supervisor ###################
   supervisor:
     build:
@@ -122,7 +136,6 @@ services:
       - ./docker/supervisor/logs:/home/logs
       - ./docker/supervisor/logs:/var/log
     links:
-      - nginx
       - mysql
       - redis
       - mailhog

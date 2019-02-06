@@ -22,6 +22,12 @@ artisan make:controller UserController
 Artisan commands runs from current user and have no permissions problems
 
 ##### For using Laravel echo server, add the following sections 
+
+- Install socket.io & laravel-echo
+```
+docker-compose exec node yarn add socket.io laravel-echo --save
+ ```
+
 ```
 // to layout.blade.php, before <script src="{{ asset('app.js') }}"></script>
 
@@ -41,6 +47,8 @@ Artisan commands runs from current user and have no permissions problems
  * allows your team to easily build robust real-time web applications.
  */
 
+import Echo from 'laravel-echo';
+
 window.io = require('socket.io-client');
 
 const host = window.echoConfig.port
@@ -48,15 +56,17 @@ const host = window.echoConfig.port
   : window.echoConfig.host;
 
 window.Echo = new Echo({
-  broadcaster: 'socket.io',
-  namespace: 'App.Events.Broadcasts',
-  host,
+    broadcaster: 'socket.io',
+    namespace: 'App.Events',
+    host
 });
 ``` 
 
 ### TODO:
 - add eslint extension
 - add code style extensions (cs-fixer)
+
+-- add echo-server to supervisor conf
 
 - figure it out with deployment
 - add all extensions to supervisor container
