@@ -37,9 +37,18 @@ const actions = {
   getConversation({commit}, id) {
     commit('setConversationLoading', true);
 
+    if (state.conversation) {
+      Echo.leave(`conversation.${state.conversation.id}`);
+    }
+
     api.getConversation(id).then((response) => {
       commit('setConversation', response.data.data);
       commit('setConversationLoading', false);
+
+      Echo.private(`conversation.${id}`)
+        .listen('ConversationReplyCreated', (conversation) => {
+          commit('appendToConversation', conversation);
+        });
 
       window.history.pushState(null, null, `/conversations/${id}`);
     });

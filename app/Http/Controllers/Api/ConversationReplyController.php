@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Conversation;
+use App\Events\ConversationReplyCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreConversationReplyRequest;
 use App\Http\Resources\ConversationResource;
@@ -25,6 +26,10 @@ class ConversationReplyController extends Controller
         $conversation->replies()->save($reply);
         $conversation->touchLastReply();
 
-        return ConversationResource::make($reply->load(['user', 'parent.user', 'parent.users']));
+        $reply->load(['user', 'parent.user', 'parent.users']);
+
+        broadcast(new ConversationReplyCreated($reply))->toOthers();
+
+        return ConversationResource::make($reply);
     }
 }

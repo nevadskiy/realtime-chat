@@ -45,6 +45,9 @@ const actions = {
         .listen('ConversationCreated', (conversation) => {
           commit('prependToConversations', conversation);
         })
+        .listen('ConversationReplyCreated', (conversation) => {
+          commit('prependToConversations', conversation.parent);
+        })
     });
   }
 };
