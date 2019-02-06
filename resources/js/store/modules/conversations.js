@@ -42,8 +42,8 @@ const actions = {
       commit('setConversationsLoading', false);
 
       Echo.private(`user.${app.user.id}`)
-        .listen('ConversationCreated', (e) => {
-          console.log(e);
+        .listen('ConversationCreated', (conversation) => {
+          commit('prependToConversations', conversation);
         })
     });
   }
